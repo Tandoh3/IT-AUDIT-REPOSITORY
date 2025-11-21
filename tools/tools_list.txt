@@ -1,0 +1,9 @@
+ISO27k - https://www.iso27001security.com/
+
+Identity Access Management Tool for Oracle Database and Application - https://iam-tool.streamlit.app/
+
+Compliance Checklist - https://compliance-checklist.streamlit.app/
+
+
+Center for Internet Security - https://www.cisecurity.org/controls
+
