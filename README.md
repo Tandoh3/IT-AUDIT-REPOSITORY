@@ -127,6 +127,4 @@ it-audit-repo/
 * Add organization‑specific controls in `docs/regulatory-matrix.md`.
 * This repository can be extended with country‑specific laws and frameworks.
 
----
 
-If you want, I can now generate a **downloadable README.md file**, or populate the rest of the repo with folders, templates, and checklists.
