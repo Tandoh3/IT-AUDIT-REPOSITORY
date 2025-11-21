@@ -124,7 +124,6 @@ it-audit-repo/
 # 🔗 Contribution & Licensing
 
 * Contributions are welcome via pull request.
-* Add organization‑specific controls in `docs/regulatory-matrix.md`.
 * This repository can be extended with country‑specific laws and frameworks.
 
 
