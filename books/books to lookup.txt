@@ -1,0 +1,42 @@
+SIEM 
+National Institute ofStandards and Technology, Publication to Computer Security Log Management, USA,2006, https:/1
+nvlpubs.nist.gov/nistpubsllegacy/sp/nistspecialpublication800-92.pdf
+
+EC-Council, "CEH vs PenTest+", https://www.eccouncil.org/ceh-vs-pentest/ 
+
+Ransomware 
+National Institute ofStandards and Technology, NIST IR 8374: Ransomware Risk Management: A Cybersecurity Framework 
+Profile, USA, 2022 https://csrc.nist.gov/pubs/ir/8374/final 
+
+OWASP Foundation "OWASP Top Ten" 
+
+Payment Systems 
+European Union Agency for Cybersecurity, "Security of Mobile Payments and Digital Wallets," 19 December 2016
+
+Mobile Systems 
+Nation Sceurity Agency, "Mobile Device Best Practices," https:l/media.defense.gov/2021/Sep/16/2002855921!-ll-l!O/
+MOBILE DEVICE BEST PRACTICES FINAL V3%20-%20COPY.PDF
+
+Cloud
+Cloud Security Alliance, Top Threats to Cloud Computing: Pandemic Eleven, 6 June 2022
+
+
+Certificate Revocation List 
+Ops cit CSRC glossary 
+
+Data Loss 
+Wlosinski, Loss Prevention-Next Steps," ISACA Journal, vol. 1, 16 February 2018
+
+MITRE Attack 
+MITRE ATTACK
+
+Passwords
+See Appendix A of https:llnvlpubs.nist.govlnistpubslspecialpublicationslnist.sp.800-63b.pdf for more information
+
+NIST 
+NIST Computer Security Resource Cneter, "Glossary," 
+
+Roy, A.,“Identity as aService Audit Implications and Best Practices,” ISACA Now Blog, 23 May 2023
+
+National Institute of Standards and Technology, Special Publication 800-207: Zero Trust Architecture, USA, 2020 
+
