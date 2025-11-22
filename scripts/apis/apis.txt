@@ -1,0 +1,189 @@
+ API IS Audit Template + Scripts & Admin Access Checks
+
+ 1. API Inventory & Documentation
+
+✅ Audit Check:
+
+Are all APIs documented and versioned?
+
+Are OpenAPI (Swagger) specs available?
+
+🔧 How to Audit:
+
+# If Swagger/OpenAPI is hosted
+curl https://api.example.com/swagger.json
+
+🔍 Manual Check:
+
+Review API documentation site
+
+Check API gateway (e.g., Azure API Management, AWS API Gateway)
+
+
+
+ 2. Authentication & Authorization
+
+✅ Audit Check:
+
+Are tokens (JWT, OAuth2) used?
+
+Are tokens short-lived and securely stored?
+
+🔧 How to Audit:
+
+# Make API call with token and inspect header
+curl -H "Authorization: Bearer <token>" https://api.example.com/resource
+
+# Decode JWT
+echo '<jwt_token>' | cut -d "." -f2 | base64 --decode
+
+
+
+ 3. Transport Security (TLS)
+
+✅ Audit Check:
+
+Are all endpoints using HTTPS?
+
+Is TLS version 1.2 or higher used?
+
+🔧 How to Audit:
+
+# Scan with SSLyze
+sslyze --regular api.example.com
+
+# Or Nmap
+nmap --script ssl-enum-ciphers -p 443 api.example.com
+
+
+
+ 4. Logging & Monitoring
+
+✅ Audit Check:
+
+Are requests/responses logged?
+
+Are logs stored securely?
+
+🔧 How to Audit:
+
+Check API Gateway logs (Azure, AWS, Kong, etc.)
+
+Look for diagnostic settings or SIEM integration.
+
+
+
+ 5. Input Validation & Injection Protection
+
+✅ Audit Check:
+
+Is user input validated?
+
+Are APIs protected from SQLi/XSS?
+
+🔧 How to Audit:
+
+Use OWASP ZAP or Burp Suite to perform dynamic testing.
+
+Example using ZAP CLI:
+
+zap-cli quick-scan --self-contained --start-options '-config api.disablekey=true' https://api.example.com
+
+
+
+ 6. Error Handling
+
+✅ Audit Check:
+
+Do APIs expose internal errors?
+
+Are error messages generic?
+
+🔧 How to Audit:
+
+# Send bad request
+curl -X POST https://api.example.com/login -d '{"invalid":}'
+
+Expected: HTTP 400 Bad Request with a generic error, not stack trace.
+
+
+
+ 7. Rate Limiting & Throttling
+
+✅ Audit Check:
+
+Is rate limiting enforced?
+
+Are abuse prevention measures in place?
+
+🔧 How to Audit:
+
+# Load testing tool
+hey -n 1000 -c 100 https://api.example.com/resource
+
+
+
+ 8. API Versioning
+
+✅ Audit Check:
+
+Are versions clearly marked (e.g., /v1/, /v2/)?
+
+Is there a deprecation policy?
+
+🔧 How to Audit:
+
+# Explore versions
+curl https://api.example.com/v1/
+curl https://api.example.com/v2/
+
+
+
+ 9. Compliance & PII Exposure
+
+✅ Audit Check:
+
+Does the API expose PII?
+
+Are there DPIAs or data processing agreements?
+
+🔧 How to Audit:
+
+Check Swagger spec for fields like ssn, dob, email
+
+Look for GDPR/HIPAA markers in docs
+
+
+
+10. Administrative Access (POST, PUT, DELETE)
+
+✅ Audit Check:
+
+Who can perform sensitive actions?
+
+🔧 How to Audit:
+
+a. Review API Role Definitions
+
+If you're using OAuth2 / RBAC:
+
+curl -H "Authorization: Bearer <admin_token>" https://api.example.com/user/roles
+
+b. Check Authorization in API Gateway / IAM
+
+In Azure: Check Azure APIM > Users > Groups > Roles
+
+In AWS: IAM roles attached to Lambda/API Gateway
+
+c. Log & Trace Analysis
+
+Inspect logs to see which user IDs invoke POST, PUT, DELETE.
+
+Example log (parsed):
+
+{
+  "user": "admin@company.com",
+  "method": "DELETE",
+  "endpoint": "/users/123",
+  "timestamp": "2025-09-01T10:00:00Z"
+}

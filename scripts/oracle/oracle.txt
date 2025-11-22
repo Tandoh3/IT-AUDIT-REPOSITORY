@@ -1,0 +1,164 @@
+-- 1. Database Version & Patch Level
+-- Why: Ensures you're running supported, patched software.
+SELECT * FROM V$VERSION;
+
+Check also:
+
+SELECT * FROM SYS.REGISTRY$HISTORY ORDER BY ACTION_TIME DESC;
+
+
+-- 2. Audit Trail Configuration
+-- Why: To verify that auditing is turned on and logs are captured.
+SHOW PARAMETER audit_trail;
+SELECT VALUE FROM V$OPTION WHERE PARAMETER = 'Unified Auditing';
+
+
+-- 3. Review Existing Audit Trails
+-- Why: Identify suspicious activity or lack of proper logging.
+
+SELECT * FROM DBA_AUDIT_TRAIL WHERE ROWNUM <= 100 ORDER BY TIMESTAMP DESC;
+SELECT * FROM DBA_FGA_AUDIT_TRAIL WHERE ROWNUM <= 100;
+
+-- 4. List All Database Users and Their Profiles
+SELECT USERNAME, ACCOUNT_STATUS, PROFILE, CREATED
+FROM DBA_USERS
+ORDER BY USERNAME;
+
+-- 5. List All Privileged Users (DBA, SYSDBA, etc.)
+-- Users with DBA role
+SELECT * FROM DBA_ROLE_PRIVS WHERE GRANTED_ROLE = 'DBA';
+
+-- Users with SYSDBA or SYSOPER privileges
+SELECT * FROM V$PWFILE_USERS;
+
+
+-- 6. Review Password Policies (Profiles)
+-- Profiles and their limits
+SELECT * FROM DBA_PROFILES ORDER BY PROFILE, RESOURCE_NAME;
+
+-- Password verification function
+SELECT * FROM DBA_USERS_WITH_DEFPWD;
+
+-- Custom password functions
+SELECT * FROM DBA_USERS WHERE PROFILE != 'DEFAULT';
+
+
+-- 7. Check Roles and Role Privileges
+
+-- All roles
+SELECT * FROM DBA_ROLES;
+
+-- System privileges granted to roles
+SELECT * FROM DBA_SYS_PRIVS;
+
+-- Object privileges
+SELECT * FROM DBA_TAB_PRIVS;
+
+-- 8. Users with Direct Object Access (e.g., SELECT on sensitive tables)
+
+SELECT GRANTEE, TABLE_NAME, PRIVILEGE
+FROM DBA_TAB_PRIVS
+WHERE OWNER NOT IN ('SYS', 'SYSTEM')
+  AND PRIVILEGE IN ('SELECT', 'UPDATE', 'DELETE');
+
+-- 9. Check Directory Objects and File Access
+
+SELECT * FROM DBA_DIRECTORIES;
+
+-- Who has access
+SELECT * FROM DBA_TAB_PRIVS WHERE TABLE_NAME IN (
+  SELECT DIRECTORY_NAME FROM DBA_DIRECTORIES
+);
+
+
+
+-- 10. Check for PUBLIC Grants (Risky!)
+
+SELECT * FROM DBA_TAB_PRIVS
+WHERE GRANTEE = 'PUBLIC';
+
+
+
+-- 11. Review Job Schedulers (Possible Backdoors)
+
+SELECT JOB_NAME, ENABLED, STATE, COMMENTS
+FROM DBA_SCHEDULER_JOBS;
+
+
+
+-- 12. Check for Triggers (e.g., LOGON triggers)
+
+SELECT TRIGGER_NAME, TRIGGER_TYPE, STATUS
+FROM DBA_TRIGGERS
+WHERE TRIGGERING_EVENT LIKE '%LOGON%';
+
+
+
+-- 13. Check for Unused or Dormant Users
+
+SELECT USERNAME, LAST_LOGIN
+FROM DBA_USERS
+WHERE ACCOUNT_STATUS = 'OPEN'
+ORDER BY LAST_LOGIN;
+
+(You might need to check DBA_AUDIT_SESSION for older versions.)
+
+
+
+-- 14. Transparent Data Encryption (TDE) Status
+
+-- Check if TDE is used
+SELECT * FROM V$ENCRYPTION_WALLET;
+
+-- Check encrypted columns
+SELECT TABLE_NAME, COLUMN_NAME, ENCRYPTION_ALG
+FROM DBA_ENCRYPTED_COLUMNS;
+
+
+
+-- 15. Resource Limits (Profiles)
+
+SELECT * FROM DBA_PROFILES
+WHERE RESOURCE_TYPE = 'KERNEL';
+
+Check for:
+
+FAILED_LOGIN_ATTEMPTS
+
+PASSWORD_LIFE_TIME
+
+IDLE_TIME
+
+
+
+-- 16. Check Initialization Parameters (Security Related)
+
+-- Key security parameters
+SELECT NAME, VALUE 
+FROM V$PARAMETER
+WHERE NAME IN (
+  'remote_login_passwordfile',
+  'audit_trail',
+  'sql92_security',
+  'os_authent_prefix',
+  'password_life_time',
+  'password_grace_time',
+  'resource_limit',
+  'utl_file_dir'
+);
+
+
+
+-- 17. External Access: UTL_FILE, UTL_HTTP, DBMS_SCHEDULER
+
+-- Dangerous packages usage (needs deeper review)
+SELECT * FROM DBA_TAB_PRIVS
+WHERE TABLE_NAME IN ('UTL_FILE', 'UTL_HTTP', 'DBMS_SCHEDULER', 'DBMS_LOB');
+
+
+
+
+
+
+
+
