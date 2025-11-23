@@ -4,8 +4,10 @@ A comprehensive, end‑to‑end toolkit for performing IT Audits in any organiza
 
 ---
 
-### Getting Started 
-For the best results, start by reviewing the playbook. It provides the core reasoning, structure, and framework needed to produce high-quality outputs from this repository
+## 📌Getting Started 
+
+For the best results, start by reviewing the playbook. It provides the core reasoning, structure, and framework needed to produce high-quality outputs from this repository. 
+
 ---
 
 ## 📌 Why This Repository Was Created
