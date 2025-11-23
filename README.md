@@ -4,6 +4,10 @@ A comprehensive, end‑to‑end toolkit for performing IT Audits in any organiza
 
 ---
 
+### Getting Started 
+For the best results, start by reviewing the playbook. It provides the core reasoning, structure, and framework needed to produce high-quality outputs from this repository
+---
+
 ## 📌 Why This Repository Was Created
 
 The IT audit function continues to evolve as organizations adopt new technologies, increase digital footprints, and face stricter regulatory expectations. Auditors need:
