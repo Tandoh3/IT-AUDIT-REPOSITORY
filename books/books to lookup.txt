@@ -1,3 +1,10 @@
+Policies 
+For organizations of all sizes, a good(but expensive) collection of prewritten security policies 
+is Charles Cresson Woods' "Information Security Policies Made Easy (Information Shield, 2005)"
+
+RFCs 2196 and 2504, "Site Security Handbook" and "User Handbook"
+
+
 SIEM 
 National Institute ofStandards and Technology, Publication to Computer Security Log Management, USA,2006, https:/1
 nvlpubs.nist.gov/nistpubsllegacy/sp/nistspecialpublication800-92.pdf
